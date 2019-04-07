@@ -70,17 +70,17 @@ public:
   /* Sensor type identifier constants for use with subscription
      methods below.  These must have the same numerical values as
      their counterparts in the Android API's Sensor class. */
-  static constexpr int TYPE_ACCELEROMETER = 0x1;
+  static constexpr int TYPE_LINEAR_ACCELERATION = 0x1;
   static constexpr int TYPE_GYROSCOPE = 0x4;
   static constexpr int TYPE_MAGNETIC_FIELD = 0x2;
   static constexpr int TYPE_PRESSURE = 0x6;
+  static constexpr int TYPE_ROTATION_VECTOR = 0x8;
 
   // For information on these methods, see comments around analogous methods
   // in NonGPSSensors.java.
-  const auto &getSubscribableSensors() const {
+  const std::vector<int>& getSubscribableSensors() const {
     return subscribable_sensors_;
   }
-
   bool subscribeToSensor(int id);
   bool cancelSensorSubscription(int id);
   bool subscribedToSensor(int id) const;
@@ -88,7 +88,7 @@ public:
 
   gcc_malloc
   static InternalSensors *create(JNIEnv* env, Context* native_view,
-                                 unsigned int index);
+                               unsigned int index);
 };
 
 #endif
